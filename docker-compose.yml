@@ -32,7 +32,13 @@ services:
 
 
   studio:
+    container_name: supabase-studio
     image: supabase/studio:2025.06.02-sha-8f2993d
+    build:
+      context: .
+      dockerfile: apps/studio/Dockerfile
+      args:
+        NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH}
     restart: unless-stopped
     healthcheck:
       test:

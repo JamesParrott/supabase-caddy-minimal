@@ -121,15 +121,15 @@
         }
     }
 
-    Mail service (development only)
-    handle /mail* {
-        reverse_proxy mail:9000 {
-            header_up Host {http.request.host}
-            header_up X-Real-IP {http.request.remote}
-            header_up X-Forwarded-For {http.request.remote}
-            header_up X-Forwarded-Proto {http.request.scheme}
-        }
-    }
+    # # Mail service (development only)
+    # handle /mail* {
+    #     reverse_proxy mail:9000 {
+    #         header_up Host {http.request.host}
+    #         header_up X-Real-IP {http.request.remote}
+    #         header_up X-Forwarded-For {http.request.remote}
+    #         header_up X-Forwarded-Proto {http.request.scheme}
+    #     }
+    # }
 
     # Health check endpoint
     handle /health {

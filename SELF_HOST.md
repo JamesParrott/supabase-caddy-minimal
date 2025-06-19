@@ -6,7 +6,7 @@ https://supabase.com/docs/guides/self-hosting/docker#dashboard-authentication
 
 Get a clone of supabase for the base code
 ```sh
-git clone --depth=1 --branch=Studio_on_sub_path https://github.com/JamesParrott/supabase
+git clone --depth=1 https://github.com/supabase/supabase
 ```
 
 

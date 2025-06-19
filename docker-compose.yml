@@ -40,7 +40,7 @@ services:
           "CMD",
           "node",
           "-e",
-          "fetch('http://studio:3000/${NEXT_PUBLIC_BASE_PATH}/api/platform/profile').then((r) => {if (r.status !== 200) throw new Error(r.status)})"
+          "fetch('http://studio:3000${NEXT_PUBLIC_BASE_PATH}/api/platform/profile').then((r) => {if (r.status !== 200) throw new Error(r.status)})"
         ]
       timeout: 10s
       interval: 5s
@@ -58,7 +58,7 @@ services:
 
       NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH}
       SUPABASE_URL: http://caddy:80
-      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}/${NEXT_PUBLIC_BASE_PATH}
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}${NEXT_PUBLIC_BASE_PATH}
       SUPABASE_ANON_KEY: ${ANON_KEY}
       SUPABASE_SERVICE_KEY: ${SERVICE_ROLE_KEY}
       AUTH_JWT_SECRET: ${JWT_SECRET}

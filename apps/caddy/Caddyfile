@@ -1,0 +1,149 @@
+{$DOMAIN} {
+    # Enable compression
+    encode gzip zstd
+
+    # Security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security max-age=31536000;
+        # Prevent MIME sniffing
+        X-Content-Type-Options nosniff
+        # Prevent clickjacking
+        X-Frame-Options DENY
+        # XSS protection
+        X-XSS-Protection "1; mode=block"
+        # Remove server info
+        -Server
+    }
+
+    # CORS handling for all routes
+    @cors_preflight method OPTIONS
+    handle @cors_preflight {
+        header {
+            Access-Control-Allow-Origin {http.request.header.Origin}
+            Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+            Access-Control-Allow-Headers "Authorization, Content-Type, apikey, x-client-info"
+            Access-Control-Max-Age "86400"
+        }
+        respond "" 204
+    }
+
+    # Add CORS headers to all responses
+    header {
+        Access-Control-Allow-Origin {http.request.header.Origin}
+        Access-Control-Allow-Credentials true
+    }
+
+    # Supabase Studio (Dashboard)
+    handle /{$NEXT_PUBLIC_BASE_PATH}* {    
+        
+        basic_auth {
+            {$DASHBOARD_CADDY_USERNAME} {$DASHBOARD_CADDY_PW_HASH}
+        }
+
+        reverse_proxy studio:3000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Auth endpoints
+    handle /auth/v1/* {
+        reverse_proxy auth:9999 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # REST API endpoints
+    handle /rest/v1/* {
+        reverse_proxy rest:3000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # GraphQL endpoint
+    handle /graphql/v1* {
+        reverse_proxy rest:3000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Realtime WebSocket connections
+    handle /realtime/v1/* {
+        reverse_proxy realtime:4000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+            header_up Connection {http.request.header.Connection}
+            header_up Upgrade {http.request.header.Upgrade}
+        }
+    }
+
+    # Storage API endpoints
+    handle /storage/v1/* {
+        reverse_proxy storage:5000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Edge Functions
+    handle /functions/v1/* {
+        reverse_proxy functions:9000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Database direct connection (be careful with this)
+    handle /db/* {
+        reverse_proxy postgres:5432 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Meta API for Studio
+    handle /pg/* {
+        reverse_proxy meta:8080 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    # Analytics
+    handle /analytics* {
+        reverse_proxy analytics:8000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
+
+    Mail service (development only)
+    handle /mail* {
+        reverse_proxy mail:9000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+            header_up X-Forwarded-For {http.request.remote}
+            header_up X-Forwarded-Proto {http.request.scheme}
+        }
+    }
+
+    # Health check endpoint
+    handle /health {
+        respond "OK" 200
+    }
+
+
+    # Enable access logs
+    log {
+        output file /var/log/caddy/supabase.log {
+            roll_size 100MB
+            roll_keep 10
+        }
+        format json
+    }
+}
+

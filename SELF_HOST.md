@@ -29,7 +29,7 @@ cp -rf supabase-caddy-minimal/* supabase
 
 Copy the example env variables from this repo
 ```sh
-cp supabase-caddy-minimal/.env.example. supabase/.env
+cp supabase-caddy-minimal/.env.example supabase/.env
 ```
 
 Change dir to the supabase project repo's root

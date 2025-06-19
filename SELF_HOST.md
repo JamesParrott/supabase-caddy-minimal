@@ -70,9 +70,5 @@ Start the services (in detached mode)
 ```sh
 docker compose up -d
 ```
-Start the services (in detached mode)
-```sh
-docker compose up -d
-```
 
 

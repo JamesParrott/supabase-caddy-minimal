@@ -14,6 +14,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 # Credit for tweak NEXT_PUBLIC_BASE_PATH: Inder Singh. Thanks again!  https://github.com/singh-inder
 ARG NEXT_PUBLIC_BASE_PATH
 ENV NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-"\dashboard"}
+ARG SITE_URL
+ENV SITE_URL=${SITE_URL:-"https://example.com"}
 
 # Fixes issues with Sentry CLI and SSL certificates during build
 # TODO: Git is added because it's needed to build libpg, remove it once they publish a binary on the S3 bucket

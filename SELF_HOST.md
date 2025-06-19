@@ -34,7 +34,7 @@ cp supabase-caddy-minimal/.env.example supabase/.env
 
 Change dir to the supabase project repo's root
 ```sh
-cp supabase
+cd supabase
 ```
 
 Edit the env variables

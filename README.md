@@ -27,17 +27,36 @@ Copy this repo's patches into the supabase repo
 cp -rf supabase-caddy-minimal/* supabase
 ```
 
-
-
-
+Copy env variables from this repo
 ```sh
+cp .env.example. .env
+nano .env
+```
+Populate the env variables specific to you, including those to be kept secret:
+DASHBOARD_CADDY_PW_HASH
+DASHBOARD_CADDY_USERNAME
+See: https://caddyserver.com/docs/v2-upgrade#basicauth
+Replace example.com with your project's domain (point DNS records to the host server's public IP address).
+Either comment out the SMTP section, or set SMTP_* to your email s
 
-# Switch to the supabase project directory
+
+
+Switch to the supabase project directory
+```sh
 cd supabase
+```
 
-# Pull the latest images
+Pull the latest images (commands may require sudo depending what user you are, and how Docker is installed)
+```sh
 docker compose pull
+```
 
-# Start the services (in detached mode)
+Build any custom images from source
+```sh
+docker compose build
+```
+
+Start the services (in detached mode)
+```sh
 docker compose up -d
 ```

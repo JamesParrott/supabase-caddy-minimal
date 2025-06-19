@@ -29,10 +29,15 @@ cp -rf supabase-caddy-minimal/* supabase
 
 Copy the example env variables from this repo
 ```sh
-cp .env.example. .env
+cp supabase-caddy-minimal/.env.example. supabase/.env
 ```
 
-Edit them
+Change dir to the supabase project repo's root
+```sh
+cp supabase
+```
+
+Edit the env variables
 ```sh
 nano .env
 ```

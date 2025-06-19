@@ -51,11 +51,6 @@ Either comment out the SMTP section, or set SMTP_* to your email senders creds
 
 
 
-Switch to the supabase project directory
-```sh
-cd supabase
-```
-
 Pull the latest images (commands may require sudo depending what user you are, and how Docker is installed)
 ```sh
 docker compose pull

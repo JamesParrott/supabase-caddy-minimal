@@ -11,7 +11,7 @@ git clone --depth=1 https://github.com/supabase/supabase
 
 
 
-Copy the Docker compose files to the root
+Copy its Docker compose files to the root
 ```sh
 cp -rf supabase/docker/* supabase
 ```
@@ -27,17 +27,22 @@ Copy this repo's patches into the supabase repo
 cp -rf supabase-caddy-minimal/* supabase
 ```
 
-Copy env variables from this repo
+Copy the example env variables from this repo
 ```sh
 cp .env.example. .env
+```
+
+Edit them
+```sh
 nano .env
 ```
-Populate the env variables specific to you, including those to be kept secret:
+Populate the env variables specific to your deployment, including those to be kept secret, e.g.:
 DASHBOARD_CADDY_PW_HASH
 DASHBOARD_CADDY_USERNAME
 See: https://caddyserver.com/docs/v2-upgrade#basicauth
+
 Replace example.com with your project's domain (point DNS records to the host server's public IP address).
-Either comment out the SMTP section, or set SMTP_* to your email s
+Either comment out the SMTP section, or set SMTP_* to your email senders creds
 
 
 
@@ -60,3 +65,9 @@ Start the services (in detached mode)
 ```sh
 docker compose up -d
 ```
+Start the services (in detached mode)
+```sh
+docker compose up -d
+```
+
+

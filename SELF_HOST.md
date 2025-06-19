@@ -8,7 +8,7 @@ Get a clone of supabase for the base code
 ```sh
 git clone --depth=1 https://github.com/supabase/supabase
 ```
-
+(tested on commit 380a55e9bf8b6e49157f28f5dc4466d505cf1658)
 
 Copy its Docker compose files to the root
 ```sh
@@ -20,6 +20,7 @@ Clone this repo
 ```sh
 git clone --depth=1 --branch=Studio_on_sub_path https://github.com/JamesParrott/supabase-caddy-minimal
 ```
+(tested on commit 22fc13d310f9bc60c3253c5f25ea9637e07de66e)
 
 Copy this repo's patches into the supabase repo
 ```sh

@@ -35,7 +35,7 @@
     }
 
     # Supabase Studio (Dashboard)
-    handle /{$NEXT_PUBLIC_BASE_PATH}* {    
+    handle {$NEXT_PUBLIC_BASE_PATH}* {    
         
         basic_auth {
             {$DASHBOARD_CADDY_USERNAME} {$DASHBOARD_CADDY_PW_HASH}

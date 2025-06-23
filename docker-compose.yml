@@ -33,7 +33,6 @@ services:
 
   studio:
     container_name: supabase-studio
-    image: supabase/studio:2025.06.02-sha-8f2993d
     build:
       context: .
       dockerfile: apps/studio/Dockerfile

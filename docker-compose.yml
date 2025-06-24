@@ -29,6 +29,21 @@ services:
       NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-/}
       DASHBOARD_CADDY_PW_HASH: ${DASHBOARD_CADDY_PW_HASH}
       DASHBOARD_CADDY_USERNAME: ${DASHBOARD_CADDY_USERNAME}
+      
+  nextjs:
+    build:
+      context: ./apps/nextjs
+      dockerfile: ./Dockerfile
+    environment:
+      NEXT_PUBLIC_SITE_URL: ${SITE_URL}/nextjs/
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
+      NEXT_PUBLIC_SUPABASE_URL: ${SUPABASE_PUBLIC_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
+
+      # Get these from Stripe dashboard
+      # NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+      # STRIPE_SECRET_KEY=
+      # STRIPE_WEBHOOK_SECRET=
 
 
   studio:

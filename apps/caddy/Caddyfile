@@ -34,19 +34,15 @@
         Access-Control-Allow-Credentials true
     }
 
-    # Supabase Studio (Dashboard)
-    handle {$NEXT_PUBLIC_BASE_PATH}* {    
-        
-        basic_auth {
-            {$DASHBOARD_CADDY_USERNAME} {$DASHBOARD_CADDY_PW_HASH}
-        }
 
-        reverse_proxy studio:3000 {
+    # Example NextJS app.
+    handle /nextjs/* {
+        reverse_proxy nextjs:3000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
         }
     }
-
+    
     # Auth endpoints
     handle /auth/v1/* {
         reverse_proxy auth:9999 {
@@ -136,6 +132,18 @@
         respond "OK" 200
     }
 
+    # Supabase Studio (Dashboard)
+    handle {$NEXT_PUBLIC_BASE_PATH}* {    
+        
+        basic_auth {
+            {$DASHBOARD_CADDY_USERNAME} {$DASHBOARD_CADDY_PW_HASH}
+        }
+
+        reverse_proxy studio:3000 {
+            header_up Host {http.request.host}
+            header_up X-Real-IP {http.request.remote}
+        }
+    }
 
     # Enable access logs
     log {

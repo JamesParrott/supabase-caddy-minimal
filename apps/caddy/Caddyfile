@@ -36,7 +36,7 @@
 
 
     # Example NextJS app.
-    handle /nextjs/* {
+    handle_path /nextjs/* {
         reverse_proxy nextjs:3000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -44,7 +44,7 @@
     }
     
     # Auth endpoints
-    handle /auth/v1/* {
+    handle_path /auth/v1/* {
         reverse_proxy auth:9999 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -52,7 +52,7 @@
     }
 
     # REST API endpoints
-    handle /rest/v1/* {
+    handle_path /rest/v1/* {
         reverse_proxy rest:3000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -60,7 +60,7 @@
     }
 
     # GraphQL endpoint
-    handle /graphql/v1* {
+    handle_path /graphql/v1* {
         reverse_proxy rest:3000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -68,7 +68,7 @@
     }
 
     # Realtime WebSocket connections
-    handle /realtime/v1/* {
+    handle_path /realtime/v1/* {
         reverse_proxy realtime:4000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -78,7 +78,7 @@
     }
 
     # Storage API endpoints
-    handle /storage/v1/* {
+    handle_path /storage/v1/* {
         reverse_proxy storage:5000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -86,7 +86,7 @@
     }
 
     # Edge Functions
-    handle /functions/v1/* {
+    handle_path /functions/v1/* {
         reverse_proxy functions:9000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -94,7 +94,7 @@
     }
 
     # Database direct connection (be careful with this)
-    handle /db/* {
+    handle_path /db/* {
         reverse_proxy postgres:5432 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -102,7 +102,7 @@
     }
 
     # Meta API for Studio
-    handle /pg/* {
+    handle_path /pg/* {
         reverse_proxy meta:8080 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -110,7 +110,7 @@
     }
 
     # Analytics
-    handle /analytics* {
+    handle_path /analytics* {
         reverse_proxy analytics:8000 {
             header_up Host {http.request.host}
             header_up X-Real-IP {http.request.remote}
@@ -118,7 +118,7 @@
     }
 
     # # Mail service (development only)
-    # handle /mail* {
+    # handle_path /mail* {
     #     reverse_proxy mail:9000 {
     #         header_up Host {http.request.host}
     #         header_up X-Real-IP {http.request.remote}
@@ -133,7 +133,7 @@
     }
 
     # Supabase Studio (Dashboard)
-    handle {$NEXT_PUBLIC_BASE_PATH}* {    
+    handle_path {$NEXT_PUBLIC_BASE_PATH}* {    
         
         basic_auth {
             {$DASHBOARD_CADDY_USERNAME} {$DASHBOARD_CADDY_PW_HASH}

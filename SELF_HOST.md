@@ -19,7 +19,7 @@ cp -rf supabase/docker/* supabase
 
 Clone this repo
 ```sh
-git clone --depth 1 https://github.com/JamesParrott/supabase-caddy-minimal
+git clone --branch NextJS_App --depth 1 https://github.com/JamesParrott/supabase-caddy-minimal
 ```
 (tested on commit b193bc68bab6905c75d393f22d24bec12779ed56 (before this commit) and the supabase one above)
 
